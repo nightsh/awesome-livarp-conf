@@ -227,7 +227,7 @@ function (widget, args)
 	end
 end, 61, Battery
 )
-batwidget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("xfce4-power-manager-settings") end ) ) )
+--batwidget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("xfce4-power-manager-settings") end ) ) )
 
 -----------------------------------------
 
