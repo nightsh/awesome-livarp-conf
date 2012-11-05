@@ -190,7 +190,6 @@ function (widget, args)
 end, 621)
 
 popups.disk(fsrwidget,{ title_color = beautiful.notify_font_color_1})			
-fsrwidget:buttons(awful.util.table.join(awful.button({}, 1, function () teardrop("urxvtc -T bashmount -e bashmount","center","center",400,400) end)))
 
 -----Udisks menu---------------------------------
 --require ("lib.udisks_glue")
@@ -228,7 +227,7 @@ function (widget, args)
 	end
 end, 61, Battery
 )
-batwidget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("xfce4-power-manager-settings") end ) ) )
+--batwidget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("xfce4-power-manager-settings") end ) ) )
 
 -----------------------------------------
 
