@@ -3,25 +3,14 @@
 -- order here matters, early rules will be applied first
 shifty.config.apps = {
 		 { match = {
-			 "Rox-filer",
              "xcalc",
              "file-roller",
              "lxappearance",
             },
 			float = true,
 		 },
-		 { match = {"Transmission"                     }, tag = "bt" },
          { match = {"^Download$", "Preferences", "VideoDownloadHelper" }, float = true, intrusive = true },
-         { match = {"luakit","Iceweasel","Firefox",    }, tag = "www", opacity = 1.0       				 },
-         { match = {"irssi","weechat"    		       }, tag = "irc",	                   				 },
-         { match = {"Gimp"                             }, tag = "gimp", float = true , opacity = 1.0     },
-         { match = {"gimp-image-window"                }, slave = true,  opacity = 1.0                   },
          { match = {"MPlayer","ffplay","gnome-mplayer" }, float = true,  opacity = 1.0  		         },
-         { match = {"alpine","thunderbird","mutt"  	   }, tag = "mail",                                  },
-         { match = {"geany"                            }, tag = "edit"                                   },
-         { match = {"gajim"                            }, tag = "msg", float = true                      },
-         { match = {"OpenOffice.*","Abiword","Gnumeric"}, tag = "office",                                },
-         { match = {"VirtualBox"                       }, tag = "vbox", float = true,  opacity = 1.0     },
          { match = {"lxappearence",                    }, float = true, opacity = 1.0                    },
          { match = {"gpicview","evince"                }, float = true, tag = "view",                  },
 		 { match = {

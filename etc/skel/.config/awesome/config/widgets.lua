@@ -191,15 +191,6 @@ end, 621)
 
 popups.disk(fsrwidget,{ title_color = beautiful.notify_font_color_1})			
 
------Udisks menu---------------------------------
---require ("lib.udisks_glue")
---udisks_glue=udisks_glue.new(beautiful.usb)
--- udisks_glue:set_mount_icon(beautiful.accept)
--- udisks_glue:set_umount_icon(beautiful.cancel)
--- udisks_glue:set_detach_icon(beautiful.cancel)
--- udisks_glue:set_Usb_icon(beautiful.usb)
--- udisks_glue:set_Cdrom_icon(beautiful.cdrom)
-
 -- Battery state -----------------------
 -- Initialize widget 
 batwidget = widget({ type = "textbox" })
@@ -418,24 +409,22 @@ mywibox[s] = awful.wibox({
 -- Add Widgets to the Panel ----------------------------------
     mywibox[s].widgets = {
         {
-            mylauncher,mytaglist[s],mypromptbox[s],
+            mylauncher,mytaglist[s],myyoutbox,promptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        mylayoutbox[s],spacer,
-		datewidget,
+		s == 1 and mysystray or nil,
+        datewidget,
 		spacer,separator,spacer,
 		volwidget,
 		spacer,separator,spacer,
 		batwidget,
 		spacer,separator,spacer,
-		--udisks_glue.widget,spacer,
 		fsrwidget,
 		spacer,separator,spacer,
         memwidget,
         spacer,separator,spacer,
         cpuwidget,
-        spacer,separator,spacer,
-        s == 1 and mysystray or nil,
+        --spacer,separator,spacer,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
