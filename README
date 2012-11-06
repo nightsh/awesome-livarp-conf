@@ -1,0 +1,7 @@
+livarped version of aphelive 0.4 awesome wm configuration
+
+requis en plus dans livarp :
+- apt-show-versions (pour le widget apt)
+
+un widget gmail est configuré mais non affiché, pour etre utilisé il suffit de decommenter la ligne dans la "bottom_bar" et de mettre les identifiants de messagerie dans ~/.netrc
+

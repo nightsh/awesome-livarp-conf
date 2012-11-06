@@ -1,0 +1,35 @@
+-- Rules ---------------------------------------------------------
+-- SHIFTY: application matching rules
+-- order here matters, early rules will be applied first
+shifty.config.apps = {
+		 { match = {
+             "xcalc",
+             "file-roller",
+             "lxappearance",
+            },
+			float = true,
+		 },
+         { match = {"^Download$", "Preferences", "VideoDownloadHelper" }, float = true, intrusive = true },
+         { match = {"MPlayer","ffplay","gnome-mplayer" }, float = true,  opacity = 1.0  		         },
+         { match = {"lxappearence",                    }, float = true, opacity = 1.0                    },
+         { match = {"gpicview","evince"                }, float = true, tag = "view",                  },
+		 { match = {
+             "urxvt", 
+            },
+            opacity = 0.8,
+			honorsizehints = false,
+			slave = true,
+		},
+		{ match = {""},
+			buttons = awful.util.table.join(
+				awful.button({}, 1, function (c) client.focus = c; c:raise() end),
+				awful.button({modkey}, 1, function(c)
+					client.focus = c
+					c:raise()
+					awful.mouse.client.move(c)
+					end),
+				awful.button({modkey}, 3, awful.mouse.client.resize)
+				)
+			},
+		}
+---------------------------------------------------------------------------
