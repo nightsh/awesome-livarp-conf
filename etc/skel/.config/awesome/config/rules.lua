@@ -2,17 +2,8 @@
 -- SHIFTY: application matching rules
 -- order here matters, early rules will be applied first
 shifty.config.apps = {
-		 { match = {
-             "xcalc",
-             "file-roller",
-             "lxappearance",
-            },
-			float = true,
-		 },
-         { match = {"^Download$", "Preferences", "VideoDownloadHelper" }, float = true, intrusive = true },
-         { match = {"MPlayer","ffplay","gnome-mplayer" }, float = true,  opacity = 1.0  		         },
-         { match = {"lxappearence",                    }, float = true, opacity = 1.0                    },
-         { match = {"gpicview","evince"                }, float = true, tag = "view",                  },
+         { match = {"^Download$", "Preferences" }, float = true, intrusive = true },
+         { match = {"lxappearence","MPlayer","ffplay","gnome-mplayer" }, float = true, opacity = 1.0  		         },
 		 { match = {
              "urxvt", 
             },
