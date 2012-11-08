@@ -94,7 +94,7 @@ function M:getVolume(ctrlToHighlight)
     if volumes[ctrl] then
       local prefix, suffix = '',''
       if ctrl == ctrlToHighlight then
-        prefix,suffix = '<span color="green">',"</span>"
+        prefix,suffix = '<span color="white">',"</span>"
       end
       table.insert(ret, prefix .. couth.string.rpad(ctrl, pad_width) .. ': '
         .. self:muteIndicator(volumes[ctrl]['mute']) .. ' '
