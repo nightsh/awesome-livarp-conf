@@ -16,8 +16,8 @@ use_titlebar = false
 -- Tags -----------------------------------------------------------------
 -- Shifty configured tags.
 shifty.config.tags = {
-	["w"]   = { position = 1,  init = true, layout = layouts[1]},
-    ["e"]   = { position = 2,  init = true, layout = layouts[2]},
+    ["w"]   = { position = 1,  init = true, layout = layouts[1]},
+    ["e "]  = { position = 2,  init = true, layout = layouts[2]},
     ["s"]   = { position = 3,  init = true, layout = layouts[3]},
     ["o"]   = { position = 4,  init = true, layout = layouts[4]},
     ["m"]   = { position = 5,  init = true, layout = layouts[5]},
