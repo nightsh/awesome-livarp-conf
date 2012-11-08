@@ -198,13 +198,15 @@ fsicon.image = image(beautiful.widget_fs)
 -- fs
 
 fs = {
-  b = awful.widget.progressbar(), r = awful.widget.progressbar(),
-  h = awful.widget.progressbar(), s = awful.widget.progressbar()
+  --b = awful.widget.progressbar(),
+  r = awful.widget.progressbar(),
+  --h = awful.widget.progressbar(),
+  --s = awful.widget.progressbar()
 }
 -- Progressbar properties
 for _, w in pairs(fs) do
   w:set_vertical(true):set_ticks(true)
-  w:set_height(14):set_width(5):set_ticks_size(2)
+  w:set_height(14):set_width(8):set_ticks_size(2)
   w:set_border_color(nil)
   w:set_background_color("#4A4A4A")
   w:set_gradient_colors({ "#96ADCF", "#7559A1", "#CB4230"}) 
@@ -215,17 +217,20 @@ for _, w in pairs(fs) do
 end -- Enable caching
 vicious.cache(vicious.widgets.fs)
 -- Register widgets
-vicious.register(fs.b, vicious.widgets.fs, "${/boot used_p}", 599)
+--vicious.register(fs.b, vicious.widgets.fs, "${/boot used_p}", 599)
 vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",     599)
-vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 599)
+--vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 599)
 
-popups.disk(fs.b.widget,{ title_color = beautiful.notify_font_color_1})
+--popups.disk(fs.b.widget,{ title_color = beautiful.notify_font_color_1})
 popups.disk(fs.r.widget,{ title_color = beautiful.notify_font_color_1})
-popups.disk(fs.h.widget,{ title_color = beautiful.notify_font_color_1})
+--popups.disk(fs.h.widget,{ title_color = beautiful.notify_font_color_1})
 
-fs.b.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer /boot") end ) ) )
-fs.r.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer /") end ) ) )
-fs.h.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer ~") end ) ) )
+--fs.b.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer /boot") end ) ) )
+fs.r.widget:buttons(awful.util.table.join(
+    awful.button({}, 1, function () awful.util.spawn ("rox-filer") end ),
+    awful.button({}, 3, function () awful.util.spawn ("urxvtc -e ncdu") end )
+))
+--fs.h.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer") end ) ) )
 
 -- Battery state -----------------------
 baticon = widget({ type = "imagebox" })
@@ -279,7 +284,7 @@ volwidget:buttons(awful.util.table.join(
 	awful.button({ "Control" }, 1, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','toggle'))) end),
 	awful.button({ "Control" }, 4, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','3dB+'))) end),
 	awful.button({ "Control" }, 5, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','3dB-'))) end),    
-	awful.button({ }, 3, function () exec(teardrop("urxvtc -T alsamixer -e alsamixer","center","center",800,600)) end)    
+	awful.button({ }, 3, function () exec(teardrop("urxvtc -T alsamixer -e alsamixer","center","center",800,390)) end)    
 ))
 volwidget:add_signal('mouse::enter', function () couth.notifier:notify( couth.alsa:getVolume() ) end)
 
@@ -351,7 +356,7 @@ vicious.register(aptwidget, vicious.widgets.pkg,
                 end, 1800, "Debian")
 
                 --'1800' means check every 30 minutes
-aptwidget:buttons(awful.util.table.join(awful.button({}, 1, function () teardrop("urxvtc -e update.sh", "bottom","center",800,100,true) end ) ) )
+aptwidget:buttons(awful.util.table.join(awful.button({}, 3, function () teardrop("urxvtc -e update.sh", "bottom","center",800,100,true) end ) ) )
 -----------------------------------------
 
 -- Enable mocp
@@ -467,7 +472,8 @@ mywibox[s] = awful.wibox({
 		spacer,separator,spacer,
 		batwidget,spacer,baticon,
 		spacer,separator,spacer,
-		fs.h.widget,spacer,fs.r.widget,spacer,fs.b.widget,spacer,fsicon,
+		--fs.h.widget,spacer,fs.r.widget,spacer,fs.b.widget,spacer,fsicon,
+		fs.r.widget,spacer,fsicon,
 		spacer,separator,spacer,
         memwidget.widget,spacer,memicon,
         spacer,separator,spacer,

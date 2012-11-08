@@ -67,7 +67,8 @@ awful.key( k_m	, "f", function () teardrop("urxvtc -T ranger -e ranger","center"
 awful.key( k_m	, "i", function () awful.util.spawn("urxvtc -T weechat -e weechat-curses") end),
 
 awful.key( k_mc	, "r", awesome.restart),
-awful.key( k_mc	, "q", awesome.quit),
+--awful.key( k_mc	, "q", awesome.quit),
+awful.key( k_mc	, "q", function () awful.util.spawn("shutdown.sh") end),
 
 -- Menu --------------------------------------------------------------------------------
 awful.key( k_m, "p", function () mymainmenu:show({keygrabber=true}) end),
