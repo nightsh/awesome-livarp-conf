@@ -6,17 +6,17 @@
 -- Principal -----------------------------------------------------------
 theme = {}
 --theme.wallpaper_cmd = { "nitrogen --restore" }
---theme.wallpaper_cmd = { "feh --bg-scale ".. os.getenv("HOME") .."/.config/awesome/current_wallpaper" }
+theme.wallpaper_cmd = { "feh --bg-scale ".. os.getenv("HOME") .."/.config/awesome/current_wallpaper" }
 
 --only for my xephyr test
-theme.wallpaper_cmd = { "feh --bg-scale /home/aphelion/tmp/testxephyr/current_wallpaper" }
+--theme.wallpaper_cmd = { "feh --bg-scale /home/aphelion/tmp/testxephyr/current_wallpaper" }
 ------------------------------------------------------------------------
 
 -- Name ----------------------------------------------------------------
---theme.path = os.getenv("HOME").."/.config/awesome/themes/livarp"
+theme.path = os.getenv("HOME").."/.config/awesome/themes/livarp"
 
 --only for my xephyr test
-theme.path = "/home/aphelion/tmp/testxephyr/themes/livarp"
+--theme.path = "/home/aphelion/tmp/testxephyr/themes/livarp"
 ------------------------------------------------------------------------
 
 -- Police --------------------------------------------------------------
