@@ -89,7 +89,7 @@ end
 --=== Disk usage===
 local function get_diskinfo( my_title_color)
   str=awful.util.pread('/bin/df -h')
-  str=colorize(str,"Sys. fich.", my_title_color)
+  str=colorize(str,"Sys. de fichiers", my_title_color)
   str=colorize(str,"Taille", my_title_color)
   str=colorize(str,"Uti.", my_title_color)
   str=colorize(str,"Disp.", my_title_color)
