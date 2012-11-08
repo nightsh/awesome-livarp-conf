@@ -109,3 +109,25 @@ mywidget_t=awful.tooltip({
 	timeout= 10,
 })
 end
+
+
+--=== Help===
+local function get_help( my_title_color)
+  str=awful.util.pread('/bin/cat /usr/share/awesome/help')
+  str=colorize(str,"Raccourcis", my_title_color)
+  str=colorize(str,"Commandes", my_title_color)
+  return str
+end
+
+function help(mywidget, args)
+mywidget_t=awful.tooltip({ 
+	objects = { mywidget },
+	timer_function = function ()	
+		return get_help( args["title_color"], args["used_color"], args["free_color"]) 
+	end,
+	update_func = function ()	
+		return get_help( args["title_color"], args["used_color"], args["free_color"]) 	
+	end,
+	timeout= 10,
+})
+end

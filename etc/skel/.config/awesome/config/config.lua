@@ -6,6 +6,6 @@ Battery = "BAT0"
 icon_theme = ""
 
 -- folders
-wallpapers = home .. "/images/backgrounds"
+wallpapers = "/usr/share/backgrounds"
 screenshots = home .. "/images/"
 -- 

@@ -72,9 +72,16 @@ for s = 1, screen.count() do
 -----------------------------------------------------------------------------------------------
 os.setlocale("fr_FR.UTF-8")
 
+calicon = widget({ type = "imagebox" })
+calicon.image = image(beautiful.widget_cal)
+
 -- Create a textclock widget
 datewidget = widget({ type = "textbox" })
 vicious.register(datewidget, vicious.widgets.date, "<span color=\""..beautiful.fg_normal.."\" size=\"small\">%a %d %b %Y %R</span>", 60)
+
+-- Calendar widget to attach to the textclock
+require('calendar2')
+calendar2.addCalendarToWidget(datewidget)
 
 ------------------------------------------------------------------
 
@@ -138,60 +145,91 @@ vicious.register(uptime, vicious.widgets.uptime,
 -- CPU widget
 require ("popups")
 
-cpuwidget = widget({ type = "textbox" })
+cpuicon = widget({ type = "imagebox" })
+cpuicon.image = image(beautiful.widget_cpu)
 
-vicious.register(cpuwidget, vicious.widgets.cpu,
-	function (widget, args)
-		if args[1] >= 50 and args[1] <= 75 then
-			return "<span color=\""..beautiful.bg_urgent.."\" size=\"small\">Cpu : " .. args[1] .. "%</span>"
-		elseif args[1] > 75 then
-			return "<span color=\"red\" size=\"small\">Cpu : " .. args[1] .. "%</span>"
-		else
-			return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">Cpu : " .. args[1] .. "%</span>"
-		end
-	end )
-cpuwidget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ( terminal .. " -e htop --sort-key PERCENT_CPU") end ) ) )
-popups.htop(cpuwidget,{ title_color = beautiful.notify_font_color_1, user_color= beautiful.notify_font_color_2, root_color=beautiful.notify_font_color_3, terminal = "urxvtc"})
+--cpu usage (progress bar) ---------------------------------------------
+-- Initialize widget
+cpuwidget = awful.widget.graph()
+-- Graph properties
+cpuwidget:set_width(50)
+cpuwidget:set_background_color("#4A4A4A")
+cpuwidget:set_color("#CB4230")
+cpuwidget:set_gradient_colors({ "#CB4230", "#7559A1", "#96C8CF" })
+-- Register widget
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
+cpuwidget.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ( terminal .. " -e htop --sort-key PERCENT_CPU") end ) ) )
+popups.htop(cpuwidget.widget,{ title_color = beautiful.notify_font_color_1, user_color= beautiful.notify_font_color_2, root_color=beautiful.notify_font_color_3, terminal = "urxvtc"})
 
 
 -- Ram widget
-memwidget = widget({ type = "textbox" })
-memwidget_t = awful.tooltip({ objects = { memwidget },})
+memicon = widget({ type = "imagebox" })
+memicon.image = image(beautiful.widget_mem)
 
+------------------------------------------------------------------------
+
+-- Memory usage (progress bar) -----------------------------------------
+-- Initialize widget
+memwidget = awful.widget.progressbar()
+memwidget_t = awful.tooltip({ objects = { memwidget.widget },})
+
+-- Progressbar properties
+memwidget:set_width(8)
+memwidget:set_height(15)
+memwidget:set_vertical(true)
+memwidget:set_background_color("#4A4A4A")
+memwidget:set_border_color(nil)
+memwidget:set_color("#96ADCF")
+memwidget:set_gradient_colors({ "#96ADCF", "#7559A1", "#CB4230" })
+-- Register widget
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, 
+vicious.register(memwidget.widget, vicious.widgets.mem, 
 	function (widget, args)
 		memwidget_t:set_text("Utilisé : " .. args[2] .. "/" .. args[3] .. "\nLibre : " .. args[4] .. "\n\nSwap : " .. args[5] .."/" .. args[7])
-		return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">Mem : " .. args[1] .. "%</span>"
+		return args[1]
 	end, 59)
 
+
+
 -- Filesystem widgets
--- root
-fsrwidget = widget({ type = "textbox" })
+fsicon = widget({ type = "imagebox"})
+fsicon.image = image(beautiful.widget_fs)
+-- fs
 
-vicious.register(fsrwidget, vicious.widgets.fs,
-function (widget, args)
-	if args["{/ used_p}"] >= 93 and args["{/ used_p}"] < 97 then
-		return "<span color=\""..beautiful.bg_focus.."\" size=\"small\">root " .. args["{/ used_p}"] .. "% used (" .. args["{/ avail_gb}"] .. " GiB free) </span>"
-	elseif args["{/ used_p}"] >= 97 and args["{/ used_p}"] < 99 then
-		return "<span color=\"purple\" size=\"small\">root " .. args["{/ used_p}"] .. "% used (" .. args["{/ avail_gb}"] .. " GiB free)</span>"
-	elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
-		naughty.notify({ 
-			title = "Avertissement Disque dur", 
-			text = "Plus d'espace libre sur root!\nFaite de la place.", 
-			timeout = 10, position = "top_right", 
-			fg = beautiful.fg_urgent, 
-			bg = beautiful.bg_urgent 
-		})
-		return "<span color=\"red\" size=\"small\">root " .. args["{/ used_p}"] .. "% used (" .. args["{/ avail_gb}"] .. " GiB free)</span>"
-	else
-		return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">root " .. args["{/ used_p}"] .. "% used (" .. args["{/ avail_gb}"] .. " GiB free)</span>"
-	end
-end, 621)
+fs = {
+  b = awful.widget.progressbar(), r = awful.widget.progressbar(),
+  h = awful.widget.progressbar(), s = awful.widget.progressbar()
+}
+-- Progressbar properties
+for _, w in pairs(fs) do
+  w:set_vertical(true):set_ticks(true)
+  w:set_height(14):set_width(5):set_ticks_size(2)
+  w:set_border_color(nil)
+  w:set_background_color("#4A4A4A")
+  w:set_gradient_colors({ "#96ADCF", "#7559A1", "#CB4230"}) 
+  -- Register buttons
+  w.widget:buttons(awful.util.table.join(
+    awful.button({ }, 1, function () exec("rox-filer", false) end)
+  ))
+end -- Enable caching
+vicious.cache(vicious.widgets.fs)
+-- Register widgets
+vicious.register(fs.b, vicious.widgets.fs, "${/boot used_p}", 599)
+vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",     599)
+vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 599)
 
-popups.disk(fsrwidget,{ title_color = beautiful.notify_font_color_1})			
+popups.disk(fs.b.widget,{ title_color = beautiful.notify_font_color_1})
+popups.disk(fs.r.widget,{ title_color = beautiful.notify_font_color_1})
+popups.disk(fs.h.widget,{ title_color = beautiful.notify_font_color_1})
+
+fs.b.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer /boot") end ) ) )
+fs.r.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer /") end ) ) )
+fs.h.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer ~") end ) ) )
 
 -- Battery state -----------------------
+baticon = widget({ type = "imagebox" })
+baticon.image = image(beautiful.widget_bat)
 -- Initialize widget 
 batwidget = widget({ type = "textbox" })
 bat_t = awful.tooltip({ objects = { batwidget },})
@@ -211,9 +249,9 @@ function (widget, args)
 				fg = beautiful.fg_urgent, 
 				bg = beautiful.bg_urgent 
 			})
-			return "<span color=\""..beautiful.bg_urgent.."\" size=\"small\">Bat : ".. args[2] .. "%</span>"
+			return "<span color=\""..beautiful.bg_urgent.."\" size=\"small\">".. args[2] .. "%</span>"
 		else
-			return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">Bat : ".. args[2] .. "%</span>"
+			return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">".. args[2] .. "%</span>"
 		end
 	end
 end, 61, Battery
@@ -221,14 +259,16 @@ end, 61, Battery
 --batwidget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("xfce4-power-manager-settings") end ) ) )
 
 -----------------------------------------
+volicon = widget({ type = "imagebox"})
+volicon.image = image(beautiful.widget_vol)
 
 volwidget = widget({ type = "textbox" })
 vicious.register(volwidget, vicious.widgets.volume,
 function (widget, args)
 	if args[1] == 0 or args[2] == "♩" then
-		return "<span color=\""..beautiful.bg_urgent.."\" size=\"small\">Vol : mute</span>"
+		return "<span color=\""..beautiful.bg_urgent.."\" size=\"small\">mute</span>"
 	else
-		return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">Vol : " .. args[1] .. "</span>"
+		return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">" .. args[1] .. "</span>"
 	end
 end, 2, "Master" )
 
@@ -242,9 +282,13 @@ volwidget:buttons(awful.util.table.join(
 	awful.button({ }, 3, function () exec(teardrop("urxvtc -T alsamixer -e alsamixer","center","center",800,600)) end)    
 ))
 volwidget:add_signal('mouse::enter', function () couth.notifier:notify( couth.alsa:getVolume() ) end)
-volwidget:add_signal('mouse::leave', function () naughty.destroy(volinfo[1]) end)
 
 -- ==========
+
+infoicon = widget({ type = "imagebox" })
+infoicon.image = image(beautiful.widget_info)
+
+popups.help(infoicon,{ title_color = beautiful.notify_font_color_1})
 
 -- ==NETWORK==
 -- net widget --------------------------
@@ -259,7 +303,7 @@ vicious.register(net, vicious.widgets.net,
 						if name ~= nil then
 							if name ~= "lo" then
 								if received ~= 0 then
-									out = out .. " <span color=\""..beautiful.fg_normal.."\" size=\"small\">" .. name .."</span> <span color=\"red\" size=\"x-small\">up </span><span color=\"red\" size=\"small\">" .. args["{" .. name .." up_kb}"] .. "KB</span> / <span color=\"green\" size=\"small\">" .. args["{" .. name .." down_kb}"] .. "KB</span><span color=\"green\" size=\"x-small\"> dn</span>" 
+									out = out .. " <span color=\""..beautiful.bg_normal.."\" size=\"small\">" .. name .."</span> <span color=\"red\" size=\"x-small\">up </span><span color=\"red\" size=\"small\">" .. args["{" .. name .." up_kb}"] .. "KB</span> / <span color=\"green\" size=\"small\">" .. args["{" .. name .." down_kb}"] .. "KB</span><span color=\"green\" size=\"x-small\"> dn</span>" 
 								end
 							end
 						end
@@ -307,7 +351,7 @@ vicious.register(aptwidget, vicious.widgets.pkg,
                 end, 1800, "Debian")
 
                 --'1800' means check every 30 minutes
-aptwidget:buttons(awful.util.table.join(awful.button({}, 1, function () teardrop("urxvtc -e update.sh", "bottom","center",800,100,true) end ) ) )
+aptwidget:buttons(awful.util.table.join(awful.button({}, 1, function () teardrop("urxvtc -e ~/bin/update.sh", "bottom","center",800,100,true) end ) ) )
 -----------------------------------------
 
 -- Enable mocp
@@ -407,24 +451,28 @@ mywibox[s] = awful.wibox({
 --------------------------------------------------------------
 
 -- Add Widgets to the Panel ----------------------------------
-    mywibox[s].widgets = {
+   mywibox[s].widgets = {
         {
-            mylauncher,mytaglist[s],myyoutbox,promptbox[s],
+            mylauncher,mytaglist[s],mylayoutbox[s],mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-		s == 1 and mysystray or nil,
-        datewidget,
+        spacer,
+        s == 1 and mysystray or nil,
+        spacer,
+		datewidget,spacer,calicon,
+		spacer,separator,
+		infoicon,
+		separator,spacer,
+		volwidget,spacer,volicon,
 		spacer,separator,spacer,
-		volwidget,
+		batwidget,spacer,baticon,
 		spacer,separator,spacer,
-		batwidget,
+		fs.h.widget,spacer,fs.r.widget,spacer,fs.b.widget,spacer,fsicon,
 		spacer,separator,spacer,
-		fsrwidget,
-		spacer,separator,spacer,
-        memwidget,
+        memwidget.widget,spacer,memicon,
         spacer,separator,spacer,
-        cpuwidget,
-        --spacer,separator,spacer,
+        cpuwidget.widget,spacer,cpuicon,
+        spacer,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }

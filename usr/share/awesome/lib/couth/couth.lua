@@ -104,6 +104,8 @@ function couth.notifier:notify(msg)
     text = msg,
     font = couth.CONFIG.NOTIFIER_FONT,
     position = couth.CONFIG.NOTIFIER_POSITION,
+    fg = "#222222",
+    bg = "#76A3B4",
     timeout = couth.CONFIG.NOTIFIER_TIMEOUT,
     replaces_id = self.id
   }).id
