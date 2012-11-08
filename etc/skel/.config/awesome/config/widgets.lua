@@ -351,7 +351,7 @@ vicious.register(aptwidget, vicious.widgets.pkg,
                 end, 1800, "Debian")
 
                 --'1800' means check every 30 minutes
-aptwidget:buttons(awful.util.table.join(awful.button({}, 1, function () teardrop("urxvtc -e ~/bin/update.sh", "bottom","center",800,100,true) end ) ) )
+aptwidget:buttons(awful.util.table.join(awful.button({}, 1, function () teardrop("urxvtc -e update.sh", "bottom","center",800,100,true) end ) ) )
 -----------------------------------------
 
 -- Enable mocp

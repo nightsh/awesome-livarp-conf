@@ -89,7 +89,7 @@ end
 --=== Disk usage===
 local function get_diskinfo( my_title_color)
   str=awful.util.pread('/bin/df -h')
-  str=colorize(str,"Sys. fich.", my_title_color)
+  str=colorize(str,"Sys. de fichiers", my_title_color)
   str=colorize(str,"Taille", my_title_color)
   str=colorize(str,"Uti.", my_title_color)
   str=colorize(str,"Disp.", my_title_color)
@@ -116,6 +116,19 @@ local function get_help( my_title_color)
   str=awful.util.pread('/bin/cat /usr/share/awesome/help')
   str=colorize(str,"Raccourcis", my_title_color)
   str=colorize(str,"Commandes", my_title_color)
+  str=colorize(str,"Applications", my_title_color)
+  str=colorize(str,"Shifty", my_title_color)
+  str=colorize(str,"Moc", my_title_color)
+  str=colorize(str,"Système", my_title_color)    
+  str=colorize(str,"Clients", my_title_color)
+  str=colorize(str,"Widgets", my_title_color)
+  str=colorize(str,"Général", "orange")
+  str=colorize(str,"Calendrier", "orange")
+  str=colorize(str,"Volume", "orange")  
+  str=colorize(str,"Cpu", "orange")
+  str=colorize(str,"Apt Update", "orange")
+  str=colorize(str,"Musique", "orange")  
+  str=colorize(str,"Disques", "orange")  
   return str
 end
 
