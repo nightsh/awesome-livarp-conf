@@ -1,5 +1,40 @@
-Raccourcis	Commandes
-Alt+F2		Run
+Raccourcis	Commandes				Raccourcis	Commandes
+Applications						Widgets
+Alt+r/Alt+F2	Run					Général
+Alt+Entrée	Terminal				Ctrl+Alt+v	Afficher/Masquer la bottom-bar
 Alt+f		Ranger
-Alt+shift+f	Rox-filer
-Ctrl+Alt+v	Affichier/masquer la bottom-bar
+Alt+Shift+f	Rox-filer				Calendrier	
+Alt+w		Luakit					Clic g/d	Mois précédent/Mois suivant	
+Alt+Shift+w	Firefox					Ctrl+clic g/d	Année précédente/Année suivante
+Alt+F3		Recherche Web	
+Alt+m		Music player(cli)			Volume
+Alt+i		Weechat					molette h/b	Augmente/Réduit le volume Master
+							clic gauche	Sourdine Master
+Clients							Ctrl+clic g	Sourdine PCM
+Alt+q		Fermer le client			clic droit	Alsamixer
+Alt+clic g	Déplacer				
+Alt+clic d	Redimmensionner				Cpu
+Alt+j/k		Focus client précédent/suivant		clic gauche	Htop	
+Ctrl+Alt+Space	Mode flottant				
+							Apt Update
+Système							clic gauche	Mise a jour du système
+Alt+p		Menu
+PrintScr	Capture d'écran				Disques
+Ctrl+Alt+r	Recharger awesome			clic gauche	Rox-filer
+Ctrl+Alt+q	Quitter awesome
+							Musique
+Shifty							clic gauche	Play/Pause
+Alt+a		Créer un nouveau tag			clic droit	Stop
+Alt+Shift+r	Renommer un Tag				molette h/b	Titre suivant/précédent
+Alt+Shift+d	Supprimer le tag courant		clic central	Ouvrir le player
+Alt+gauche	Tag précédent
+Alt+droite	Tag suivant
+Alt+Shift+n	Déplace le client vers le tag précédent
+Alt+n		Déplace le client vers le tag suivant
+Alt+Space	Changement de layout
+
+Moc
+Ctrl+gauche	Titre précédent
+Ctrl+droite	Titre Suivant
+Ctrl+haute	Stop
+Ctrl+basse	Play/Pause
