@@ -3,10 +3,10 @@
 
 -- Graph submenu -------------------------------------------------------
 capture = {
-{"Maintenant", "scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"},
-{"Dans 5s", "scrot -d5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"},
-{"Dans 10s", "scrot -d10 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"},
-{"Selection", "scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"}
+{"Maintenant", "scrot '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"},
+{"Dans 5s", "scrot -d5 '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"},
+{"Dans 10s", "scrot -d10 '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"},
+{"Selection", "scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"}
  }
 ------------------------------------------------------------------------
 
@@ -22,7 +22,6 @@ awesomemenu = {
     { "Editer rules.lua", editor_cmd .." ".. config_dir .."/config/rules.lua"},
     { "Editer signals.lua", editor_cmd .." ".. config_dir .."/config/signals.lua"},
     { "Editer tags.lua", editor_cmd .." ".. config_dir .."/config/tags.lua"},
-    { "Editer menu.lua", editor_cmd .." ".. config_dir .."/config/menu.lua"},
     { "Editer widgets.lua", editor_cmd .." ".. config_dir .."/config/widgets.lua"},
     { "-----------"},
     { "éditer awesome_start", editor_cmd .." bin/start/awesome_start.sh" },
@@ -81,6 +80,7 @@ internet = {
    { "client torrent transmission", "transmission" },
 }
 bureautique = {
+   { "éditeur de texte", "geany" },
    { "traitement de texte", "abiword" },
    { "tableur", "gnumeric" },
    { "calculatrice", "xcalc" },
@@ -131,7 +131,7 @@ mymainmenu = awful.menu({ items = { { "lancer", "dmenu_run -i -p 'exec :' -nb '"
                                     { "système", systemmenu },
                                     { "aide", helpmenu },
                                     { "--------" },
-                                    { "verrouiller l'ecran", "slock" },
+                                    { "verrouiller l'ecran", "xscreensaver-command --lock" },
                                     { "quitter", "shutdown.sh" }
                                   }
                         })
