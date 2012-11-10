@@ -137,7 +137,7 @@ uptime = widget({ type = "textbox" })
 uptime_t = awful.tooltip({ objects = { uptime },})
 vicious.register(uptime, vicious.widgets.uptime,
 	function (widget, args)
-		uptime_t:set_text("Load : [".. args[4] .."/".. args[5] .."/".. args[6] .."]\n")
+		uptime_t:set_text("Load : [".. args[4] .."/".. args[5] .."/".. args[6] .."]")
 		return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">Uptime : " .. args[1] .. "d " .. args[2] .. "h " .. args[3] .. "m </span>"
 	end,60)
 
