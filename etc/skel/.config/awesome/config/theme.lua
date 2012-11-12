@@ -37,7 +37,7 @@ function wallpaper_load(wall)
   local cfg_path = awful.util.getdir("config")
   -- Create a symlink from the given theme to /home/user/.config/awesome/current_wallpaper
   awful.util.spawn("ln -sfn " .. wallpapers .. "/" .. wall .. " " .. home .. "/.config/awesome/current_wallpaper")
-  awful.util.spawn("feh --bg-scale " .. wallpapers .. "/" .. wall)
+  awful.util.spawn("feh --bg-fill " .. wallpapers .. "/" .. wall)
 end
 function wallpaper_menu()
 -- List your theme files and feed the menu table
