@@ -295,6 +295,8 @@ infoicon.image = image(beautiful.widget_info)
 
 popups.help(infoicon,{ title_color = beautiful.notify_font_color_1})
 
+infoicon:buttons(awful.button({ }, 1, function () exec(teardrop(webcli.." /usr/share/livarp/help_center/fr/sessions/awesome.html","center","center",800,600)) end))
+
 -- ==NETWORK==
 -- net widget --------------------------
 net = widget({ type = "textbox" })
