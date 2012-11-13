@@ -233,6 +233,19 @@ fs.r.widget:buttons(awful.util.table.join(
 --fs.h.widget:buttons(awful.util.table.join(awful.button({}, 1, function () awful.util.spawn ("rox-filer") end ) ) )
 
 -- Battery state -----------------------
+-- Battery autodetection ---------------
+local cmd = "ls -1 /sys/class/power_supply/"
+local f = io.popen(cmd)
+local fh = ""
+for l in f:lines() do
+	local fh= io.open("/sys/class/power_supply/".. l .."/present", "r")
+	if fh == nil then
+	else
+		Battery = l
+	end
+end
+f:close()
+
 baticon = widget({ type = "imagebox" })
 baticon.image = image(beautiful.widget_bat)
 -- Initialize widget 
