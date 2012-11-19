@@ -1,7 +1,7 @@
  Raccourcis	Commandes				Raccourcis	Commandes
  Applications						Widgets
  Alt+r/Alt+F2	Run					Général
- Alt+Entrée	Terminal				Ctrl+Alt+v	Afficher/Masquer la bottom-bar
+ Alt+Entrée	Terminal				Ctrl+Alt+b/t	Afficher/Masquer la bottom-bar/top-bar
  Alt+f		Ranger
  Alt+Shift+f	Rox-filer				Calendrier	
  Alt+w		Luakit					Clic g/d	Mois précédent/Mois suivant	

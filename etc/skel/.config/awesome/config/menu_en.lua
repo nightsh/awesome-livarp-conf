@@ -3,10 +3,10 @@
 
 -- Graph submenu -------------------------------------------------------
 capture = {
-{"Now", "scrot '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"},
-{"In 5s", "scrot -d5 '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"},
-{"In 10s", "scrot -d10 '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"},
-{"In a Zone", "scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' & gpicview '$f'"}
+{"now", "scrot"},
+{"in 5s", "scrot -d5"},
+{"in 10s", "scrot -d10"},
+{"in a Zone", "scrot -s"}
  }
 ------------------------------------------------------------------------
 
@@ -115,19 +115,19 @@ helpmenu = {
 ------------------------------------------------------------------------
 
 -- Main Menu -----------------------------------------------------------
-mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" .. 
-										beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal .. 
-										"' -sb '" .. beautiful.bg_focus .. 
-										"' -sf '" .. beautiful.fg_focus .. "'" },
-									{ "--------" },
-									{ "terminal", terminal },
-									{ "web browser", "luakit" },
-									{ "file-manager", manager },
+mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" ..
+beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
+"' -sb '" .. beautiful.bg_focus ..
+"' -sf '" .. beautiful.fg_focus .. "'" },
+{ "--------" },
+{ "terminal", terminal },
+{ "web browser", "luakit" },
+{ "file-manager", manager },
                                     { "text editor", "geany" },
                                     { "media player", "gnome-mplayer" },
                                     { "--------" },
                                     { "applications", applications },
-									{ "preferences", prefs },
+{ "preferences", prefs },
                                     { "system", systemmenu },
                                     { "help", helpmenu },
                                     { "--------" },
@@ -138,5 +138,7 @@ mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" ..
 ------------------------------------------------------------------------
 
 -- Launcher Menu -------------------------------------------------------
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
+if menu_icon then
+	mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
+end
 ------------------------------------------------------------------------

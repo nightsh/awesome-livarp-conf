@@ -1,6 +1,8 @@
+----------
 -- Modkeys
 -- k_m = touche Alt
 -- k_w = touche Win
+
 
 -- Key bindings ------------------------------------------------------------------------------
 globalkeys = awful.util.table.join(
@@ -62,13 +64,14 @@ awful.key( k_ms	, "f", function () awful.util.spawn(manager) end),
 awful.key( k_m	, "w", function () awful.util.spawn(webcli) end),
 awful.key( k_ms	, "w", function () awful.util.spawn(webgui) end),
 awful.key( k_ms	, "m", function () awful.util.spawn(mediaplayer) end),
+awful.key( k_m	, "v", function () awful.util.spawn("virtualbox") end),
+awful.key( k_mc	, "m", function () teardrop("urxvtc -T bashmount -e bashmount","center","center",400,400) end),
 awful.key( k_m	, "m", function () teardrop("urxvtc -T moc -e mocp","center","center",800,600) end),
-awful.key( k_m	, "f", function () teardrop("urxvtc -T ranger -e ranger","center","center",800,600) end),
+awful.key( k_m	, "f", function () teardrop("urxvtc -T mc -e mc","center","center",800,600) end),
 awful.key( k_m	, "i", function () awful.util.spawn("urxvtc -T weechat -e weechat-curses") end),
 
 awful.key( k_mc	, "r", awesome.restart),
---awful.key( k_mc	, "q", awesome.quit),
-awful.key( k_mc	, "q", function () awful.util.spawn("shutdown.sh") end),
+awful.key( k_mc	, "q", awesome.quit),
 
 -- Menu --------------------------------------------------------------------------------
 awful.key( k_m, "p", function () mymainmenu:show({keygrabber=true}) end),
@@ -84,6 +87,10 @@ awful.key( k_mc	, "h",     function () awful.tag.incncol( 1)         end),
 awful.key( k_mc	, "l",     function () awful.tag.incncol(-1)         end),
 awful.key( k_m	, "space", function () awful.layout.inc(layouts,  1) end),
 awful.key( k_ms	, "space", function () awful.layout.inc(layouts, -1) end),
+-----------------------------------------------------------------------------------------
+
+-- Random Wallpaper ---------------------------------------------------------------------
+awful.key( k_mc	, "w", function () awful.util.spawn(home .. "/.bin/random_wall.sh -s") end),
 -----------------------------------------------------------------------------------------
 
 -- moc control --------------------------------------------------------------------------
@@ -140,7 +147,10 @@ awful.key({ }, "XF86Display", function () awful.util.spawn("grandr")end),
 awful.key({ }, "XF86PowerOff", function () awful.util.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Suspend")end),
 
 --bottom bar visible or not
-awful.key(k_mc, "v", function ()
+awful.key(k_mc, "t", function ()
+     mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+end),
+awful.key(k_mc, "b", function ()
      my_bottom_wibox[mouse.screen].visible = not my_bottom_wibox[mouse.screen].visible
 end),
 
@@ -261,4 +271,4 @@ function clean_for_completion (command, cur_pos, ncomp, shell)
    end
    return command, cur_pos
 end
--- }}}
+-----------------------------------------

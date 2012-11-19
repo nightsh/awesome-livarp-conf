@@ -1,7 +1,7 @@
  Keybinds	Commands				Keybinds	Commands
  Applications						Widgets
  Alt+r/Alt+F2	Run					General
- Alt+Enter	terminal				Ctrl+Alt+v	toggle on/off bottom-bar
+ Alt+Enter	terminal				Ctrl+Alt+b/t	toggle on/off bottom-bar/top-bar
  Alt+f		ranger
  Alt+Shift+f	rox-filer				Calendar	
  Alt+w		luakit					button1/3	previous/next month	

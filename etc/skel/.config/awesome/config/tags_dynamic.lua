@@ -1,3 +1,4 @@
+-------------
 -- Window management layouts ---------
 layouts = 
 {
@@ -10,23 +11,26 @@ layouts =
 }
 --------------------------------------
 
--- Define if we want to use titlebar on all applications.
-use_titlebar = false
-
 -- Tags -----------------------------------------------------------------
 -- Shifty configured tags.
 shifty.config.tags = {
-    ["w"]   = { position = 1,  init = true, layout = layouts[1]},
-    ["e "]  = { position = 2,  init = true, layout = layouts[2]},
-    ["s"]   = { position = 3,  init = true, layout = layouts[3]},
-    ["o"]   = { position = 4,  init = true, layout = layouts[4]},
-    ["m"]   = { position = 5,  init = true, layout = layouts[5]},
-    ["e"]   = { position = 6,  init = true, layout = layouts[6]},
+	["foo"]   = { position = 1,  init = true,   },
+    ["www"]   = { position = 2,  layout=layouts[4],spawn = webcli,},
+    ["irc"]   = { position = 3,  nopopup = true, },
+    ["office"]= { position = 5,  exclusive = true, nopopup = true,  },
+    ["gimp"]  = { position = 6,  exclusive = true, nopopup = true, spawn = gimp, },
+    ["msg"]   = { position = 7,  exclusive = true, nopopup = true,  },
+    ["view"]  = { position = 8,  exclusive = true, nopopup = true,  },
+    ["urxvt"] = { position = 9,  init = true,  },
+    ["mail"]  = { position = 10, exclusive = true, nopopup = true,  },
+    ["edit"]  = { position = 11, },
+    ["bt"]    = { position = 12, nopopup = true, spawn = torrent},
+    ["vbox"]  = { position = 13, exclusive = true, nopopup = true,  },
+    ["wow"]   = { position = 14, layout=layouts[4],},
 }
 
-
 -- client rules --
-dofile(config_dir .."/config/rules.lua")
+dofile(config_dir .."/config/rules_dynamic.lua")
 ----------
 
 -- SHIFTY: default tag creation rules
@@ -44,8 +48,7 @@ shifty.config.defaults = {
     guess_name = true,
     guess_position = true,
 }
---focus on client hovering
-shifty.config.sloppy = true
---titlebar only on floating client
-shifty.config.float_bars = false
+
+--shifty.config.sloppy = true
+shifty.config.float_bars = enable_floatbar
 --shifty.config.honorsizehints = false

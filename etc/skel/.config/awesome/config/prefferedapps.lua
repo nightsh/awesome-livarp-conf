@@ -1,4 +1,4 @@
--- Apps conf ----------------------------
+-------------
 terminal = "urxvtc"
 manager = "rox-filer"
 editor = "vim"

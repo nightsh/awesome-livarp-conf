@@ -23,4 +23,7 @@ shifty.config.apps = {
 				)
 			},
 		}
+		
+shifty.config.sloppy = true
+shifty.config.float_bars = enable_floatbar
 ---------------------------------------------------------------------------
