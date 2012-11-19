@@ -14,15 +14,19 @@ capture = {
 awesomemenu = {
     { "themes", mythememenu },
     { "wallpapers", mywallmenu },
+    { "-----------"},   
+    { "edit config.lua", editor_cmd .." ".. config_dir .."/config.lua"},    
     { "-----------"},
-    { "edit autorun.lua", editor_cmd .." ".. config_dir .."/config/autorun.lua"},
     { "edit keys.lua", editor_cmd .." ".. config_dir .."/config/keys.lua"},
     { "edit menu.lua", editor_cmd .." ".. config_dir .."/config/menu.lua"},
     { "edit mouse.lua", editor_cmd .." ".. config_dir .."/config/mouse.lua"},
-    { "edit rules.lua", editor_cmd .." ".. config_dir .."/config/rules.lua"},
+    { "edit rules_dynamic.lua", editor_cmd .." ".. config_dir .."/config/rules_dynamic.lua"},
+    { "edit rules_static.lua", editor_cmd .." ".. config_dir .."/config/rules_static.lua"},
     { "edit signals.lua", editor_cmd .." ".. config_dir .."/config/signals.lua"},
-    { "edit tags.lua", editor_cmd .." ".. config_dir .."/config/tags.lua"},
-    { "edit widgets.lua", editor_cmd .." ".. config_dir .."/config/widgets.lua"},
+    { "edit tags_dynamic.lua", editor_cmd .." ".. config_dir .."/config/tags_dynamic.lua"},
+    { "edit tags_static.lua", editor_cmd .." ".. config_dir .."/config/tags_static.lua"},
+    { "edit widgets_text.lua", editor_cmd .." ".. config_dir .."/config/widgets_text.lua"},
+    { "edit widgets_graph.lua", editor_cmd .." ".. config_dir .."/config/widgets_graph.lua"},
     { "-----------"},
     { "edit awesome_start", editor_cmd .." bin/start/awesome_start.sh" },
     { "-----------"},
@@ -115,19 +119,19 @@ helpmenu = {
 ------------------------------------------------------------------------
 
 -- Main Menu -----------------------------------------------------------
-mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" ..
-beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
-"' -sb '" .. beautiful.bg_focus ..
-"' -sf '" .. beautiful.fg_focus .. "'" },
-{ "--------" },
-{ "terminal", terminal },
-{ "web browser", "luakit" },
-{ "file-manager", manager },
+mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" .. 
+										beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal .. 
+										"' -sb '" .. beautiful.bg_focus .. 
+										"' -sf '" .. beautiful.fg_focus .. "'" },
+									{ "--------" },
+									{ "terminal", terminal },
+									{ "web browser", "luakit" },
+									{ "file-manager", manager },
                                     { "text editor", "geany" },
                                     { "media player", "gnome-mplayer" },
                                     { "--------" },
                                     { "applications", applications },
-{ "preferences", prefs },
+									{ "preferences", prefs },
                                     { "system", systemmenu },
                                     { "help", helpmenu },
                                     { "--------" },
@@ -138,7 +142,5 @@ beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
 ------------------------------------------------------------------------
 
 -- Launcher Menu -------------------------------------------------------
-if menu_icon then
-	mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
-end
+mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
 ------------------------------------------------------------------------
