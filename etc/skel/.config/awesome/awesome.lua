@@ -95,10 +95,5 @@ dofile(config_dir .."/config/keys.lua")
 print("Entering signals.lua: " .. os.time())
 dofile(config_dir .."/config/signals.lua")
 
-
--- autorun.lua --
-print("Entering autorun.lua: " .. os.time())
-dofile(config_dir .."/config/autorun.lua")
-
 -- useful for debugging, marks the beginning of rc.lua exec
 print("Finish awesome.lua: " .. os.time())
