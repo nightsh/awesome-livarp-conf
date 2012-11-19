@@ -1,134 +1,142 @@
--- submenu  -----------------------------------------------------------------------
+-- {{{ Menu
+-- submenu
+
+-- Graph submenu -------------------------------------------------------
 capture = {
-{"Maintenant", "scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"},
-{"Dans 5s", "scrot -d5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"},
-{"Dans 10s", "scrot -d10 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"},
-{"Selection", "scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ".. screenshots .." & gpicview ".. screenshots .."$f'"}
+{"maintenant", "scrot"},
+{"dans 5s", "scrot -d5"},
+{"dans 10s", "scrot -d10"},
+{"sélection", "scrot -s"}
  }
- 
-firewall = {
-{"Editer les règles", terminal .." -e sudo ".. editor .."/usr/local/bin/update-iptables.sh"},
-{"Appliquer", "gksudo /usr/local/bin/update-iptables.sh"},
- }
+------------------------------------------------------------------------
 
-vpn = {
-{"VPN - Arethusa", "gksudo ".. home .."/.bin/vpn.sh"},
-{"Deconnexion VPN", "gksudo killall openvpn"},
- }
-
+-- Preferences submenu -------------------------------------------------
 awesomemenu = {
-{"Relancer", awesome.restart},
-{"Deconnexion", awesome.quit },
-{ "--------" },
-{"Page de manuel", terminal .." -e man awesome"},
-{ "--------" },
-{"Editer autorun.lua", editor_cmd .." ".. config_dir .."/config/autorun.lua"},
-{"Editer keys.lua", editor_cmd .." ".. config_dir .."/config/keys.lua"},
-{"Editer menu.lua", editor_cmd .." ".. config_dir .."/config/menu.lua"},
-{"Editer mouse.lua", editor_cmd .." ".. config_dir .."/config/mouse.lua"},
-{"Editer rules.lua", editor_cmd .." ".. config_dir .."/config/rules.lua"},
-{"Editer signals.lua", editor_cmd .." ".. config_dir .."/config/signals.lua"},
-{"Editer tags.lua", editor_cmd .." ".. config_dir .."/config/tags.lua"},
-{"Editer menu.lua", editor_cmd .." ".. config_dir .."/config/menu.lua"},
-{"Editer widgets.lua", editor_cmd .." ".. config_dir .."/config/widgets.lua"},
- }
+    { "themes", mythememenu },
+    { "wallpapers", mywallmenu },
+    { "-----------"},
+    { "éditer autorun.lua", editor_cmd .." ".. config_dir .."/config/autorun.lua"},
+    { "éditer keys.lua", editor_cmd .." ".. config_dir .."/config/keys.lua"},
+    { "éditer menu.lua", editor_cmd .." ".. config_dir .."/config/menu.lua"},
+    { "éditer mouse.lua", editor_cmd .." ".. config_dir .."/config/mouse.lua"},
+    { "éditer rules.lua", editor_cmd .." ".. config_dir .."/config/rules.lua"},
+    { "éditer signals.lua", editor_cmd .." ".. config_dir .."/config/signals.lua"},
+    { "éditer tags.lua", editor_cmd .." ".. config_dir .."/config/tags.lua"},
+    { "éditer widgets.lua", editor_cmd .." ".. config_dir .."/config/widgets.lua"},
+    { "-----------"},
+    { "éditer awesome_start", editor_cmd .." bin/start/awesome_start.sh" },
+    { "-----------"},
+    { "page de manuel", terminal .." -e man awesome" },
+    { "éditer .xinitrc", editor_cmd .." .xinitrc" },
+    { "-----------"},
+    { "relancer", awesome.restart },
+    { "déconnexion", awesome.quit },
+}
 
-----
-
--- main Menu -----------------------------------------------------------------------
+conky = {
+    { "éditer .conkyrc", editor_cmd .." .conky/.conkyrc_awesome" },
+    { "page de manuel", terminal .." -e man conky" },
+    { "page de wiki", webcli .." http://arpinux.org/x/doku.php/start:conky" },
+}
+composite = {
+    { "pas d'effet", "xcompmgr_livarp -s" },
+    { "effet léger", "xcompmgr_livarp -l" },
+    { "effet classique", "xcompmgr_livarp -m" },
+    { "effet complet", "xcompmgr_livarp -f" },
+}
+------------------------------------------------------------------------
 
 prefs = {
-{"Config Awesome", awesomemenu},
-{ "--------" },
-{"Config Firewall", firewall},
-{ "--------" },
-{"Themes", mythememenu },
-{"Wallpapers", mywallmenu },
-{"Random Wallpaper", home .. "/.bin/random_wall.sh -s" },
-{"Apparence", apparence},
-{"Parametres d'affichage", "grandr"},
- }
- 
+    { "awesome", awesomemenu },
+    { "conky", conky },
+    { "affichage", "grandr" },
+    { "interface", "lxappearance" },
+    { "fond d'ecran", "nitrogen " },
+    { "page d'accueil web", editor_cmd.." .startpage/index.html" },
+    { "composite", composite},
+}
 accessoires = {
-   { "Gestionnaire d'archive", archiver },
-   { "Editeur de texte", guieditor },
-   { "Terminal", terminal },
-   { "Gestion de fichiers", filer },
-   { "Gestion de fichiers (root)", "gksudo ".. filer },
+    { "terminal", "urxvtc" },
+    { "rechercher", "catfish" },
+    { "renommer", "pyrenamer" },
+    { "gestionnaire d'archive", "file-roller" },
+    { "éditeur de texte", "geany" },
+    { "gestion de fichiers", "rox-filer" },
+    { "gestion de fichiers (root)", "gksudo rox-filer" },
 }
-
-jeux = {
-    { "W:ET - LSD", home .. "/.bin/et-lsd" },
-    { "SimFWO", "wine " .. home .. "/downloads/SimFantasy/SimFantasy.exe" },
-    { "PlayOnLinux", "playonlinux" },
-}
-
 multimedia = {
-   { "Lecteur Multimedia", mediaplayer },
-   { "Lecteur Musique", musicplayer },
-   { "Audio CD Ripper", "rrip_gui" },
-   { "Handbrake DVDRip", "handbrake-gtk"},
-   { "Graveur de cd/dvd", burner },
+   { "lecteur multimedia", "gnome-mplayer" },
+   { "lecteur musique (cli)", terminal.." -e mocp" },
+   { "graveur de cd/dvd", "brasero" },
+   { "contrôleur de volume", terminal .." -e alsamixer" },
 }
-
 internet = {
-   { "VPN", vpn },
-   { "Navigateur luakit", webcli },
-   { "Navigateur firefox", webgui },
-   { "Client irc", irc },
-   { "Client FTP", ftpgui },
-   { "Transmission (torrent)", torrent },
+   { "navigateur luakit", "luakit" },
+   { "navigateur firefox", "firefox" },
+   { "client IRC weechat", terminal.." -e weechat-ncurses" },
+   { "client jabber mcabber", terminal.." -e mcabber" },
+   { "client mail claws-mail", "claws-mail" },
+   { "client FTP filezilla", "filezilla" },
+   { "client torrent transmission", "transmission" },
 }
-
 bureautique = {
-   { "Traitement de texte", writer },
-   { "Tableur", tableur },
-   { "Calculatrice", calc },
-   { "Visionneur PDF", pdf },
+   { "éditeur de texte", "geany" },
+   { "traitement de texte", "abiword" },
+   { "tableur", "gnumeric" },
+   { "calculatrice", "xcalc" },
+   { "visionneur PDF", "evince" },
 }
-
-graphismmenu = { 
-{"The Gimp", "gimp"},
-{"Inkscape", "inkscape"},
-{"Freecad", "freecad"},
-{"Visionneur d'images", imageviewer},
-{"Capture d'ecran", capture},
+graphismmenu = {
+    { "the gimp", "gimp" },
+    { "visionneur d'images", "gpicview" },
+    { "choix de couleurs", "gcolor2" },
+    { "capture d'écran", capture },
 }
+applications = {
+    { "internet", internet },
+    { "multimedia", multimedia },
+    { "graphisme", graphismmenu },
+    { "bureautique", bureautique },
+    { "accessoires", accessoires },
+}
+systemmenu = {
+    { "gestionnaire de paquets", "gksudo synaptic" },
+    { "éditeur de partition", "gksudo gparted" },
+    { "applications par défaut", terminal.." -e sudo update-alternatives --all" },
+    { "utilisation du disque", "baobab" },
+    { "gestionnaire de services", "gksudo bum" },
+    { "terminal administrateur", terminal.." -e su" },
+    { "livarp-xs-maker", "/usr/local/bin/livarp-xs.sh" },
+}
+helpmenu = {
+    { "centre d'aide livarp", webcli.." /usr/share/livarp/help_center/index-fr.html" },
+    { "wiki livarp", webcli.." http://arpinux.org/x/doku.php/start:livarp:livarp_039" },
+}
+------------------------------------------------------------------------
 
--- Main Menu -----------------------------------------
-mymainmenu = awful.menu({ items = { 
-					{ "Executer", 
-						"dmenu_run -i -p 'Executer :' -nb '" .. beautiful.bg_normal .. 
-						"' -nf '" .. beautiful.fg_normal .. 
-						"' -sb '" .. beautiful.bg_focus .. 
-						"' -sf '" .. beautiful.fg_focus .. "'",
-						beautiful.execute_icon
-				    },
-				    { "--------" },
-				    { "Terminal", terminal, beautiful.terminal_icon },
-				    { "Navigateur Internet", webcli, beautiful.browser_icon },
-				    { "Navigateurs de fichiers", filer, beautiful.filer_icon },
-                    { "Editeur de Texte", guieditor, beautiful.editor_icon },
-                    { "Lecteur Multimedia", mediaplayer, beautiful.mediaplayer_icon },
-                    { "Virtualbox", "virtualbox"},
-                    { "--------" },
-                    { "Accessoires", accessoires },
-                    { "Graphisme", graphismmenu },
-                    { "Multimedia", multimedia },
-                    { "Jeux", jeux },
-                    { "Internet", internet },
-                    { "Bureautique", bureautique },
-                    { "--------" },
-				    { "Preferences", prefs },
-                    { "--------" },
-                    { "Verrouiller l'ecran", locker, beautiful.lock_icon },
-                    { "Quitter", "shutdown.sh", beautiful.shutdown_icon }
-               }
-})
-------------------------------------------------------
- 
--- Launcher Menu --------------------------------------------------------------------------------
-if menu_icon then
-	mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
-end
-------------------------------------------------------------------------------------------------
+-- Main Menu -----------------------------------------------------------
+mymainmenu = awful.menu({ items = { { "lancer", "dmenu_run -i -p 'exec :' -nb '" .. 
+										beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal .. 
+										"' -sb '" .. beautiful.bg_focus .. 
+										"' -sf '" .. beautiful.fg_focus .. "'" },
+									{ "--------" },
+									{ "terminal", terminal },
+									{ "navigateur internet", "luakit" },
+									{ "navigateurs de fichiers", manager },
+                                    { "éditeur de texte", "geany" },
+                                    { "lecteur multimedia", "gnome-mplayer" },
+                                    { "--------" },
+                                    { "applications", applications },
+									{ "préférences", prefs },
+                                    { "système", systemmenu },
+                                    { "aide", helpmenu },
+                                    { "--------" },
+                                    { "verrouiller l'ecran", "xscreensaver-command --lock" },
+                                    { "quitter", "shutdown.sh" }
+                                  }
+                        })
+------------------------------------------------------------------------
+
+-- Launcher Menu -------------------------------------------------------
+mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
+------------------------------------------------------------------------
