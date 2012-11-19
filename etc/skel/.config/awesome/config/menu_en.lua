@@ -115,19 +115,19 @@ helpmenu = {
 ------------------------------------------------------------------------
 
 -- Main Menu -----------------------------------------------------------
-mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" ..
-beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
-"' -sb '" .. beautiful.bg_focus ..
-"' -sf '" .. beautiful.fg_focus .. "'" },
-{ "--------" },
-{ "terminal", terminal },
-{ "web browser", "luakit" },
-{ "file-manager", manager },
+mymainmenu = awful.menu({ items = { { "run", "dmenu_run -i -p 'exec :' -nb '" .. 
+										beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal .. 
+										"' -sb '" .. beautiful.bg_focus .. 
+										"' -sf '" .. beautiful.fg_focus .. "'" },
+									{ "--------" },
+									{ "terminal", terminal },
+									{ "web browser", "luakit" },
+									{ "file-manager", manager },
                                     { "text editor", "geany" },
                                     { "media player", "gnome-mplayer" },
                                     { "--------" },
                                     { "applications", applications },
-{ "preferences", prefs },
+									{ "preferences", prefs },
                                     { "system", systemmenu },
                                     { "help", helpmenu },
                                     { "--------" },
@@ -138,7 +138,5 @@ beautiful.bg_normal .. "' -nf '" .. beautiful.fg_normal ..
 ------------------------------------------------------------------------
 
 -- Launcher Menu -------------------------------------------------------
-if menu_icon then
-	mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
-end
+mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
 ------------------------------------------------------------------------
