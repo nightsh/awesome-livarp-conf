@@ -360,7 +360,7 @@ if infoicon_enable then
 		else
 			infoicon.image = image(default_info_img)
 		end
-		popups.help(infoicon,{ title_color = notify_font_color_1})
+		popups.help(infoicon,{ title_color = notify_font_color_1, lang = menu_lang})
 	end
 end
 --}}}
