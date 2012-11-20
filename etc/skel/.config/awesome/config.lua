@@ -17,6 +17,7 @@ taglist_style = "awesome" -- we support awesome (a,w,e,s,o,m,e...), arabic (1,2,
 --clients
 enable_titlebar = false --enable clients titlebar
 enable_floatbar = false --enable clients titlebar only when client is floating
+tasklist_icon_enable = true --enable client tasklist icons
 
 --wibox
 widget_mode = "graph" --support text/graph
