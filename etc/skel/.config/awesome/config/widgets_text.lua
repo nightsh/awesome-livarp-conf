@@ -118,9 +118,17 @@ mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist
 -----------------------------------------------------------------------------------------
 
 -- Tasklist ----------------------------------------------------------------------------------
-mytasklist[s] = awful.widget.tasklist(function(c)
-return awful.widget.tasklist.label.currenttags(c, s)
-end, mytasklist.buttons)
+if tasklist_icon_enable then
+	mytasklist[s] = awful.widget.tasklist(function(c)
+	return awful.widget.tasklist.label.currenttags(c, s)
+	end, mytasklist.buttons)
+else
+	mytasklist[s] = awful.widget.tasklist(function(c)
+		--remove tasklist-icon without modifying the original tasklist.lua
+		local tmptask = { awful.widget.tasklist.label.currenttags(c, s) }
+		return tmptask[1], tmptask[2], tmptask[3], nil
+	end, mytasklist.buttons)
+end
 ----------------------------------------------------------------------------------------------
 
 -- Systray -----------------------------
