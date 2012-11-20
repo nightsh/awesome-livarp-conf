@@ -366,7 +366,6 @@ end
 --}}}
 
 -- {{{ Volume level
--- Sound Control
 if vol_enable then
 	require('couth.alsa')
 	couth.CONFIG.ALSA_CONTROLS = {
@@ -376,36 +375,37 @@ if vol_enable then
 	couth.CONFIG.NOTIFIER_FONT = monofont
 	-----------------------------------------
 	volicon = widget({ type = "imagebox"})
-	if vol_enable then
-		if show_icons then
-			if beautiful.widget_info then
-				volicon.image = image(beautiful.widget_vol)
-			else
-				volicon.image = image(default_vol_img)
-			end
-		end
-
-	volwidget = widget({ type = "textbox" })
-	vicious.register(volwidget, vicious.widgets.volume,
-	function (widget, args)
-		if args[1] == 0 or args[2] == "♩" then
-			return "<span color=\""..beautiful.bg_urgent.."\" size=\"small\">mute</span>"
+	if show_icons then
+		if beautiful.widget_info then
+			volicon.image = image(beautiful.widget_vol)
 		else
-			return "<span color=\""..beautiful.fg_normal.."\" size=\"small\">" .. args[1] .. "</span>"
+			volicon.image = image(default_vol_img)
 		end
-	end, 2, "Master" )
-
-	volwidget:buttons(awful.util.table.join(
-	awful.button({ }, 1, function () exec(couth.notifier:notify( couth.alsa:setVolume('Master','toggle'))) end),
-	awful.button({ }, 4, function () exec(couth.notifier:notify( couth.alsa:setVolume('Master','3dB+'))) end),
-	awful.button({ }, 5, function () exec(couth.notifier:notify( couth.alsa:setVolume('Master','3dB-'))) end),
-	awful.button({ "Control" }, 1, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','toggle'))) end),
-	awful.button({ "Control" }, 4, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','3dB+'))) end),
-	awful.button({ "Control" }, 5, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','3dB-'))) end),
-	awful.button({ }, 3, function () exec(teardrop("urxvtc -T alsamixer -e alsamixer","center","center",800,390)) end)
-	))
-	volwidget:add_signal('mouse::enter', function () couth.notifier:notify( couth.alsa:getVolume() ) end)
 	end
+	-- Initialize widgets
+	volbar = awful.widget.progressbar()
+	-- Progressbar properties
+	volbar:set_vertical(true):set_ticks(true)
+	volbar:set_height(16):set_width(6):set_ticks_size(2)
+	volbar:set_background_color("#4A4A4A")
+	volbar:set_gradient_colors({ "#96ADCF", "#7559A1", "#CB4230"}) 
+	-- Enable caching
+	vicious.cache(vicious.widgets.volume)
+	-- Register widgets
+	vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
+	-- Register buttons
+	volbar.widget:buttons(awful.util.table.join(
+	  	awful.button({ }, 1, function () exec(couth.notifier:notify( couth.alsa:setVolume('Master','toggle'))) end),
+		awful.button({ }, 4, function () exec(couth.notifier:notify( couth.alsa:setVolume('Master','3dB+'))) end),
+		awful.button({ }, 5, function () exec(couth.notifier:notify( couth.alsa:setVolume('Master','3dB-'))) end),
+		awful.button({ "Control" }, 1, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','toggle'))) end),
+		awful.button({ "Control" }, 4, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','3dB+'))) end),
+		awful.button({ "Control" }, 5, function () exec(couth.notifier:notify( couth.alsa:setVolume('PCM','3dB-'))) end),
+		awful.button({ }, 3, function () exec(teardrop("urxvtc -T alsamixer -e alsamixer","center","center",800,390)) end)
+	)) -- Register assigned buttons
+	volicon:buttons(volbar.widget:buttons())
+	volbar.widget:add_signal('mouse::enter', function () couth.notifier:notify( couth.alsa:getVolume() ) end)
+	volicon:add_signal('mouse::enter', function () couth.notifier:notify( couth.alsa:getVolume() ) end)
 end
 -- }}}
 
@@ -702,14 +702,14 @@ end
         spacer,
         s == 1 and mysystray or nil,
         spacer,
-		datewidget,spacer,calicon,
-		infoicon_enable and separator, infoicon or nil,
-		vol_enable and separator or nil, vol_enable and volwidget or nil, vol_enable and volicon or nil,
-		battery_enable and separator or nil, battery_enable and batwidget or nil, battery_enable and baticon or nil,
-		separator, diskhomebar_enable and fs.h.widget or nil, diskrootbar_enable and fs.r.widget or nil, diskbootbar_enable and fs.b.widget or nil, diskrootbar_enable and fsicon or nil,
+	datewidget,spacer,calicon,
+	infoicon_enable and separator, infoicon or nil,
+	vol_enable and separator or nil, vol_enable and volbar.widget or nil, vol_enable and volicon or nil,
+	battery_enable and separator or nil, battery_enable and batwidget or nil, battery_enable and baticon or nil,
+	separator, diskhomebar_enable and fs.h.widget or nil, diskrootbar_enable and fs.r.widget or nil, diskbootbar_enable and fs.b.widget or nil, diskrootbar_enable and fsicon or nil,
         mem_enable and separator or nil, memtext_enable and memtext or nil, mem_enable and memwidget.widget or nil, mem_enable and memicon or nil,
         cputemp_enable and separator or nil, cputemp_enable and tzfound and tzswidget or nil,
-		cpu_enable and separator or nil,cpu_enable and cpuwidget.widget or nil, cpuicon,
+	cpu_enable and separator or nil,cpu_enable and cpuwidget.widget or nil, cpuicon,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -723,15 +723,15 @@ end
         apt_enable and separator or nil,
         gmail_enable and mygmail or nil, 
         gmail_enable and separator or nil, 
-		weather_enable and weatherwidget or nil, 
-		weather_enable and separator or nil,
-		mpd_enable and musicicon or nil,
-		mpd_enable and musicwidget.widget or nil,
-		mpd_enable and separator or nil,
-		moc_enable and musicicon or nil,
-		moc_enable and tb_moc or nil,
-		moc_enable and separator or nil,
-		layout = awful.widget.layout.horizontal.leftright
+	weather_enable and weatherwidget or nil, 
+	weather_enable and separator or nil,
+	mpd_enable and musicicon or nil,
+	mpd_enable and musicwidget.widget or nil,
+	mpd_enable and separator or nil,
+	moc_enable and musicicon or nil,
+	moc_enable and tb_moc or nil,
+	moc_enable and separator or nil,
+	layout = awful.widget.layout.horizontal.leftright
         },
         uptime_enable and uptime or nil,
         layout = awful.widget.layout.horizontal.rightleft
