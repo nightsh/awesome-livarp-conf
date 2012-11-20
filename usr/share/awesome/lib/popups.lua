@@ -111,10 +111,31 @@ end
 
 
 --=== Help===
-local function get_help( my_title_color)
-  str=awful.util.pread('/bin/cat /usr/share/awesome/help')
-  str=colorize(str,"Raccourcis", my_title_color)
-  str=colorize(str,"Commandes", my_title_color)
+local function get_help( my_title_color, my_lang)
+	if my_lang == "fr" then
+		str=awful.util.pread('/bin/cat /usr/share/awesome/help')
+	else 
+		str=awful.util.pread('/bin/cat /usr/share/awesome/help-us')
+	end
+	  str=colorize(str,"Raccourcis", my_title_color)
+	  str=colorize(str,"Shortcuts", my_title_color)
+	  str=colorize(str,"Commandes", my_title_color)
+	  str=colorize(str,"Commands", my_title_color)
+	  str=colorize(str,"Applications", my_title_color)
+	  str=colorize(str,"Shifty", my_title_color)
+	  str=colorize(str,"Moc", my_title_color)
+	  str=colorize(str,"Système", my_title_color)
+	  str=colorize(str,"System", my_title_color)  
+	  str=colorize(str,"Clients", my_title_color)
+	  str=colorize(str,"Widgets", my_title_color)
+	  str=colorize(str,"General", "orange")
+	  str=colorize(str,"Calendrier", "orange")
+	  str=colorize(str,"Volume", "orange")  
+	  str=colorize(str,"Cpu", "orange")
+	  str=colorize(str,"Apt Update", "orange")
+	  str=colorize(str,"Music", "orange")
+	  str=colorize(str,"Musique", "orange") 
+	  str=colorize(str,"Disks", "orange")  
   return str
 end
 
@@ -122,10 +143,10 @@ function help(mywidget, args)
 mywidget_t=awful.tooltip({ 
 	objects = { mywidget },
 	timer_function = function ()	
-		return get_help( args["title_color"], args["used_color"], args["free_color"]) 
+		return get_help( args["title_color"], args["lang"]) 
 	end,
 	update_func = function ()	
-		return get_help( args["title_color"], args["used_color"], args["free_color"]) 	
+		return get_help( args["title_color"], args["lang"]) 	
 	end,
 	timeout= 10,
 })
