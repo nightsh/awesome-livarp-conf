@@ -7,7 +7,7 @@ monofont = "DroidSansMono 7"
 
 --awesome menu
 menu_icon = true --if true the Awesome menu icon will show on top left corner menu still accessible with right clic and Alt+p
-menu_lang = "fr"
+menu_lang = "fr" --support fr and en
 
 --taglists
 taglist = "static" --support static/dynamic
